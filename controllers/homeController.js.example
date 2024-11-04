@@ -1,0 +1,29 @@
+// Import userModel từ tệp usermodel.js trong thư mục model
+import userModel from "../model/userModel.js";
+// Định nghĩa hàm controller cho trang chủ (home)
+const homeController = async(req,res) =>{
+    try{
+         // Tạo một đối tượng mới từ userModel với các thuộc tính đã cho
+        const data = await userModel({
+            name: "Quang Huy",
+            email: "quanghuy@gmail.com",
+            subject:"Fullstack Developer",
+            message:"Lam quen voi node js",
+        })
+         // Nếu đối tượng được tạo thành công
+        if(data){
+            // Lưu đối tượng vào cơ sở dữ liệu
+            await data.save()
+            console.log("User save successfully")
+        }
+         // Hiển thị trang 'server' bằng cách sử dụng view engine (ví dụ: EJS, Pug)
+        res.render('server') //trở đến views
+        
+    }catch(error){
+        // Nếu có lỗi, in ra console lỗi đó
+        console.log(error.message)
+    }
+    
+}
+// Xuất homeController để sử dụng ở các file khác
+export {homeController};

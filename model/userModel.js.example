@@ -1,0 +1,29 @@
+// Import thư viện mongoose, được sử dụng để định nghĩa schema và tạo model cho MongoDB
+import mongoose from "mongoose";
+// Định nghĩa một schema cho đối tượng User
+const userSchema = new mongoose.Schema ({
+    // Thuộc tính "name" là một chuỗi và bắt buộc
+    name:{
+        type:String,
+        require:true
+    },
+    // Thuộc tính "email" là một chuỗi và bắt buộc
+    email:{
+        type:String,
+        require:true
+    },
+    // Thuộc tính "subject" là một chuỗi và bắt buộc
+    subject:{
+        type:String,
+        require:true
+    },
+    // Thuộc tính "message" là một chuỗi và bắt buộc
+    message:{
+        type:String,
+        require:true
+    }
+})
+// Tạo một model từ schema với tên 'user' và sử dụng schema đã định nghĩa
+const userModel = mongoose.model('user', userSchema)
+// Xuất model để có thể sử dụng trong các file khác
+export default userModel;

@@ -1,0 +1,17 @@
+// Import thư viện express để tạo router
+import express from 'express';
+
+// Import hàm controller cho trang chủ từ file homeController.js
+import { homeController, handleContactAndSkill } from '../controllers/homeController.js';
+
+// Tạo một router mới từ thư viện express
+const routes = express.Router();
+
+// Xác định route cho URL '/' và ánh xạ nó đến hàm homeController
+routes.get('/', homeController);
+
+// Xử lý cả yêu cầu liên quan đến contact và thêm kỹ năng
+routes.post('/', handleContactAndSkill);
+
+// Xuất router để có thể sử dụng trong file khác
+export default routes;

@@ -1,0 +1,48 @@
+import User from "../model/userModel.js";
+import Skill from "../model/skillModel.js";
+
+const homeController = async (req, res) => {
+    try {
+        // Lấy danh sách kỹ năng từ MongoDB
+        const skills = await Skill.find();
+
+        res.render('server', { skills });
+    } catch (error) {
+        console.log(error.message);
+    }
+};
+
+const handleContactAndSkill = async (req, res) => {
+    try {
+        const { name, email, subject, message, skillName, skillLevel } = req.body;
+
+        if (name && email && subject && message) {
+            const userData = new User({
+                name,
+                email,
+                subject,
+                message,
+            });
+
+            await userData.save();
+            console.log("User saved successfully");
+        }
+
+        if (skillName && skillLevel) {
+            const newSkill = new Skill({
+                skillName,
+                skillLevel,
+            });
+
+            await newSkill.save();
+            console.log("Skill added successfully");
+        }
+
+        // Sau khi lưu thông tin liên hệ và kỹ năng, chuyển hướng lại view 'server'
+        res.redirect('/'); // Chuyển hướng về trang chủ sau khi xử lý dữ liệu
+    } catch (error) {
+        console.log(error.message);
+    }
+};
+
+export { homeController, handleContactAndSkill };
